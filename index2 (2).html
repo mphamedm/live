@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="style.css">
+    <title>القران الكريم</title>
+    
+
+</head>
+<body>
+    <div class="tab-buttons">
+        <button onclick="openTab('home')">الرائسيه</button>
+        <button onclick="openTab('about')">البث المباشر</button>
+        <button onclick="openTab('contact')">Contact</button>
+        
+    </div>
+
+    <div id="home" class="tab active">
+      <main>
+        <section id="channels">
+          <h2>القنوات المتاحة</h2>
+          <div class="channel-list">
+            <div class="channel">
+              
+              
+              <img src="001.png" alt="قناة الجزيرة" onclick="playChannel('http://ugeen.live:8080/Ugeen_VIP7HfpAs/DqxizE/56')">
+              
+            </div>
+            <div class="channel">
+              
+              <img src="002.png" alt="قناة العربية" onclick="window.open('mohsen.html')">
+            </div>
+          </div  >
+        
+    </div>
+
+    <div id="about" class="tab" >
+        <div   class="live">
+            <h1>binsport1</h1>
+            
+    <video id="video" controls width="800"></video>
+
+    <!-- تضمين مكتبة hls.js -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    
+      
+
+    
+    
+    
+    <script>
+        // العنصر الفيديو
+        var video = document.getElementById('video');
+        // مسار القناة (يجب استبداله بمسار القناة الفعلي)
+        var videoSrc = 'http://starshare.live:8080/live/08042023/123456789/274216.m3u8';
+
+        if (Hls.isSupported()) {
+            // إذا كان HLS مدعوم، قم بتهيئة مكتبة hls.js
+            var hls = new Hls();
+            hls.loadSource(videoSrc);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                video.play();
+            });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            // إذا كان المتصفح يدعم HLS بشكل افتراضي (مثل Safari)
+            video.src = videoSrc;
+            video.addEventListener('loadedmetadata', function () {
+                video.play();
+            });
+        } else {
+            console.error('HLS not supported.');
+        }
+
+        
+   
+
+
+
+    </script>
+
+    
+            
+            
+
+     
+
+     </div>       
+            
+
+            
+
+        
+    </div>        
+                
+
+    
+
+
+     </div>
+               
+
+
+            </div>
+            
+
+
+        </div>
+       
+    </div>
+
+    <div id="contact" class="tab">
+        <style>
+            /* **CSS** */
+            
+            body {
+              font-family: Arial, sans-serif;
+              
+              color: #333;
+              text-align: center;
+              margin: 0;
+              padding: 0;
+            }
+        
+            img {
+              max-width: 100%;
+              height: auto;
+              filter: none; /* Default filter */
+              transition: filter 0.5s, transform 0.5s; /* إضافة تحويل للصورة */
+            }
+        
+            .night-mode img {
+              filter: invert(1); /* جعل الصورة بيضاء في الوضع الليلي */
+            }
+        
+            button {
+              padding: 10px 15px;
+              margin: 10px;
+              cursor: pointer;
+            }
+        
+            .night-mode {
+              background-color: #333;
+              color: white;
+            }
+            
+            .night-mode button {
+              background-color: #555;
+              color: white;
+            }
+        
+            /* Gallery Styles */
+            .gallery {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: center;
+              margin: 20px 0;
+            }
+        
+            .gallery img {
+              width: 100px; /* Thumbnail size */
+              margin: 5px;
+              cursor: pointer;
+              border: 2px solid #ccc;
+              border-radius: 5px;
+              transition: border 0.3s;
+            }
+        
+            .gallery img:hover {
+              border-color: #007bff; /* Change border color on hover */
+            }
+        
+            .controls {
+              margin: 10px 0;
+            }
+        
+            /* Button styles for the image */
+            .show-thumbnails {
+              position: absolute;
+              top: 10px;
+              right: 10px;
+              background-color: rgba(0, 0, 0, 0.7);
+              color: white;
+              border: none;
+              padding: 5px 10px;
+              border-radius: 5px;
+              cursor: pointer;
+              z-index: 10; /* Ensure the button is above the image */
+            }
+        
+            .image-container {
+              position: relative;
+              display: inline-block; /* Keep the button positioned relative to the image */
+            }
+        
+            .thumbnails {
+              display: none; /* Initially hidden */
+              flex-wrap: wrap;
+              justify-content: center;
+              margin-top: 10px;
+            }
+          </style>
+        </head>
+        <body>
+          <h1>قراءة القرآن الكريم</h1>
+        
+          <!-- قائمة السور -->
+          <select id="suraSelect" onchange="changeSura()">
+            <option value="0">الفاتحة</option>
+            <option value="1">البقرة</option>
+            <option value="2">آل عمران</option>
+            <option value="3">النساء</option>
+            <option value="4">المائدة</option>
+            <!-- أضف المزيد من السور هنا -->
+          </select>
+        
+          <div class="image-container" id="imageContainer">
+            <img id="mainImage" src="" alt="صورة الصفحة" />
+            
+            <div class="thumbnails" id="thumbnailContainer"></div>
+          </div>
+        
+          <div class="controls">
+            <button onclick="prevPage()">السابق</button>
+            <button onclick="nextPage()">التالي</button>
+            <button onclick="toggleNightMode()">تفعيل/إلغاء وضع الليل</button>
+            <button onclick="zoomIn()">تكبير</button>
+            <button onclick="zoomOut()">تصغير</button>
+          </div>
+        
+          <script>
+            // **JavaScript**
+            
+            const images = [
+              // روابط الصور الخاصة بسورة الفاتحة
+                
+              ['img _qran/001 _page-0002.jpg'],
+              // روابط الصور الخاصة بسورة البقرة
+              ['image_baqarah_1.jpg', 'image_baqarah_2.jpg'],
+              // روابط الصور الخاصة بسورة آل عمران
+              ['image_ali_imran_1.jpg'],
+              // روابط الصور الخاصة بسورة النساء
+              ['image_nisa_1.jpg'],
+              // روابط الصور الخاصة بسورة المائدة
+              ['image_maida_1.jpg'],
+              // أضف المزيد من السور هنا
+            ];
+        
+            let currentPage = 0;
+            let currentSura = 0;
+            let zoomLevel = 1; // مستوى التكبير
+            const mainImage = document.getElementById('mainImage');
+            const thumbnailContainer = document.getElementById('thumbnailContainer');
+        
+            function loadGallery() {
+              thumbnailContainer.innerHTML = ''; // مسح المحتوى القديم
+              images[currentSura].forEach((image, index) => {
+                const imgElement = document.createElement('img');
+                imgElement.src = image;
+                imgElement.alt = `صفحة ${currentSura + 1} - صورة ${index + 1}`;
+                imgElement.style.width = '50px'; // حجم الصورة المصغرة
+                imgElement.onclick = () => {
+                  currentPage = index; // تحديث رقم الصفحة
+                  loadImage(); // تحميل الصورة المحددة
+                };
+                thumbnailContainer.appendChild(imgElement);
+              });
+              loadImage(); // تحميل الصورة الافتراضية عند بداية
+            }
+        
+            function loadImage() {
+              const selectedImage = images[currentSura][currentPage];
+              mainImage.src = selectedImage;
+              mainImage.style.transform = `scale(${zoomLevel})`; // تطبيق مستوى التكبير
+            }
+        
+            function changeSura() {
+              currentSura = document.getElementById('suraSelect').value;
+              currentPage = 0; // إعادة تعيين رقم الصفحة عند تغيير السورة
+              zoomLevel = 1; // إعادة تعيين مستوى التكبير
+              loadGallery(); // تحميل المعرض بعد تغيير السورة
+            }
+        
+            function prevPage() {
+              if (currentPage > 0) {
+                currentPage--;
+                loadImage(); // تحميل الصورة المحددة
+              }
+            }
+        
+            function nextPage() {
+              if (currentPage < images[currentSura].length - 1) {
+                currentPage++;
+                loadImage(); // تحميل الصورة المحددة
+              }
+            }
+        
+            function toggleNightMode() {
+              document.body.classList.toggle('night-mode');
+            }
+        
+            function zoomIn() {
+              zoomLevel += 0.1; // زيادة مستوى التكبير
+              loadImage(); // إعادة تحميل الصورة مع المستوى الجديد
+            }
+        
+            function zoomOut() {
+              if (zoomLevel > 0.1) { // الحد الأدنى لمستوى التكبير
+                zoomLevel -= 0.1; // تقليل مستوى التكبير
+                loadImage(); // إعادة تحميل الصورة مع المستوى الجديد
+              }
+            }
+        
+            function toggleThumbnails() {
+              if (thumbnailContainer.style.display === 'flex') {
+                thumbnailContainer.style.display = 'none'; // إخفاء الصور المصغرة
+              } else {
+                thumbnailContainer.style.display = 'flex'; // إظهار الصور المصغرة
+              }
+            }
+        
+            // تحميل المعرض عند بداية الصفحة
+            loadGallery();
+          </script>
+        </body>
+        </html>
+        
+    </div>
+
+    
+
+    <script>
+        function openTab(tabId) {
+            var tabs = document.getElementsByClassName('tab');
+            
+            
+            
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            document.getElementById(tabId).classList.add('active',);
+            
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+            
+            
+        
+
+
+
+</body>
+</html>

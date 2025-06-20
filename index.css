@@ -1,0 +1,62 @@
+body{
+    background-color: rgb(235, 229, 229);
+    
+    
+    
+}
+
+
+
+
+
+
+.tab {
+    display: none;
+}
+
+.tab-buttons {
+    display: flex;
+}
+
+.tab-buttons button {
+    flex: 1;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #441752;
+    color: white;
+    border-radius: 10px;
+    font-size: large;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.tab.active {
+    display: block;
+}
+
+.live{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    
+    
+
+    
+}
+
+
+.live a{
+    
+    text-decoration: none;
+    color: aliceblue;
+    background-color: rgb(63, 58, 58);
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: x-large;
+    width: 100vh;
+    text-align: center;
+    
+}

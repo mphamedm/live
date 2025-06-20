@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشغل HLS بتصميم مخصص</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+
+        .video-container {
+            display: inline-block;
+            position: relative;
+            width: 640px;
+            max-width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border: none;
+            outline: none;
+        }
+
+        .video-controls {
+            background: #007BFF;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .video-controls a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        .video-controls a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>مشغل بث HLS بتصميم CSS</h1>
+
+    <div class="video-container" id="videoContainer">
+        <video id="video" controls autoplay></video>
+        <div class="video-controls">
+            <a href="#play" onclick="playVideo()">تشغيل</a> |
+            <a href="#pause" onclick="pauseVideo()">إيقاف</a> |
+            <a href="#fullscreen" onclick="toggleFullScreen()">ملء الشاشة</a>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const videoContainer = document.getElementById('videoContainer');
+        const videoSrc = 'http://m3u.tz-m3u.info/hil_586844/SAW3R8tl/272468';
+
+        // إعداد HLS.js إذا لم يكن HLS مدعومًا أصليًا
+        if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(videoSrc);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                video.play();
+            });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = videoSrc;
+            video.play();
+        } else {
+            alert('متصفحك لا يدعم HLS.');
+        }
+
+        // وظائف تشغيل وإيقاف الفيديو
+        function playVideo() {
+            video.play();
+        }
+
+        function pauseVideo() {
+            video.pause();
+        }
+
+        // وظيفة ملء الشاشة
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                if (videoContainer.requestFullscreen) {
+                    videoContainer.requestFullscreen();
+                } else if (videoContainer.webkitRequestFullscreen) { // Safari
+                    videoContainer.webkitRequestFullscreen();
+                } else if (videoContainer.msRequestFullscreen) { // IE/Edge
+                    videoContainer.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) { // Safari
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) { // IE/Edge
+                    document.msExitFullscreen();
+                }
+            }
+        }
+    </script>
+</body>
+</html>

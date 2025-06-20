@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-image: url('baground.jpg');
+    background-position: center;
+    background-size: cover;
+  }
+  
+  header {
+    background-color: #1e90ff;
+    color: white;
+    padding: 1rem 0;
+  }
+  
+  main {
+    padding: 20px;
+  }
+  
+  #channels {
+    margin-top: 20px;
+  }
+  
+  .channel-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    
+  }
+  
+  .channel {
+    
+    
+    width: auto;
+    text-align: center;
+  }
+  
+  .channel img {
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    
+    
+  }
+  
+  .channel  :hover {
+    transform: scale(1.05);
+  }
+  
+  #video-container {
+    margin-top: 20px;
+    display: none; /* يتم إظهاره عند تشغيل القناة */
+  }
+  
+  video {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  
+  
+  
+
+
+  
+  
+  
